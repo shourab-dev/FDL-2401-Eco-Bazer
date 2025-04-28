@@ -27,6 +27,15 @@ body {
   scroll-behavior: smooth;
 }
 
+.error,
+.error * {
+  color: red;
+  font-size: 14px;
+  margin: 0;
+  display: block;
+  font-weight: 400;
+}
+
 ul,
 ol {
   list-style: none;
@@ -35,18 +44,22 @@ ol {
 iconify-icon {
   line-height: 10px !important;
 }
+
 html,
 body {
   scroll-behavior: smooth;
 }
+
 ::-webkit-scrollbar {
   width: 7px;
   background: var(--gray-scale-white);
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--branding-success);
   border-radius: 50px;
 }
+
 :root {
   --gren-gray-scale-900: #002603;
   --gren-gray-scale-800: #173b1a;
@@ -560,6 +573,7 @@ nav .middleNav .desktopChild {
 .desktopChild li:hover a {
   color: #fff;
 }
+
 .desktopChild li:hover {
   background: var(--branding-success-dark);
 }
@@ -582,10 +596,12 @@ nav .quickCall a {
   line-height: 150%;
   color: var(--gray-scale-gray-–-900);
 }
+
 /* *Cart Sidebar Start */
 .cardProduct {
   height: 80%;
 }
+
 .checkoutBtnBox {
   height: 20%;
 }
@@ -596,12 +612,14 @@ nav .quickCall a {
   line-height: 150%;
   color: var(--gray-scale-gray-–-900);
 }
+
 .totalPrice {
   font-weight: 600;
   font-size: 16px;
   line-height: 120%;
   color: var(--gray-scale-gray-–-900);
 }
+
 .checkout {
   font-weight: 600;
   font-size: 16px;
@@ -614,6 +632,7 @@ nav .quickCall a {
   background: var(--branding-success);
   margin: 20px 0 15px;
 }
+
 .cart {
   border-radius: 43px;
   padding: 16px 40px;
@@ -625,6 +644,7 @@ nav .quickCall a {
   line-height: 120%;
   color: var(--branding-success);
 }
+
 /* *Cart Sidebar End */
 /* *Nam Menu Desktop End */
 
@@ -961,9 +981,11 @@ footer .rightSide ul li a:focus {
   #newsLetter .middleSide .inputBox button {
     width: 40%;
   }
+
   #newsLetter .middleSide .inputBox {
     margin-top: 20px;
   }
+
   #newsLetter .right-side {
     margin-top: 20px;
   }
@@ -972,12 +994,16 @@ footer .rightSide ul li a:focus {
   footer .rightSide ul h4 {
     margin-top: 20px;
   }
+
   footer #FooterTop {
     padding: 60px 0 0;
   }
+
   #copyRight p {
     margin-bottom: 20px;
   }
+
   /* *Footer End Hear */
 }
+
 /* *Responsive End Hear */

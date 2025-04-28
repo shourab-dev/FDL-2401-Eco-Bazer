@@ -55,7 +55,7 @@
             <div class="row align-items-center">
                <div class="col-3">
                   <div class="logo">
-                     <a href="index.html"><img class="img-fluid" src="{{ asset('frontend/assets/img/Logo.png')}}"></a>
+                     <a href="{{ route('homepage') }}"><img class="img-fluid" src="{{ asset('frontend/assets/img/Logo.png')}}"></a>
                   </div>
                </div>
                <div class="col-6 d-flex align-items-center">
@@ -145,7 +145,7 @@
                <!-- *Menu Sidebar End-->
                <div class="col-6 d-flex justify-content-center">
                   <div class="logo">
-                     <a href="index.html"><img src="{{ asset('frontend/assets/img/Logo.png')}}" alt=""></a>
+                     <a href="{{ route('homepage') }}"><img src="{{ asset('frontend/assets/img/Logo.png')}}" alt=""></a>
                   </div>
                </div>
                <div class="col-3 text-end searchMob">
@@ -164,7 +164,7 @@
             </div>
             <div class="offcanvas-body text-start menuSide">
                <ul>
-                  <li><a href="index.html">Home</a></li>
+                  <li><a href="{{ route('homepage') }}">Home</a></li>
                   <li class="shopCollapse">
                      <div class="row align-items-center">
                         <div class="col-6"><a href="#">Shop</a></div>
@@ -246,7 +246,7 @@
          <div class="container">
             <div class="row justify-content-evenly align-items-center mt-3">
                <div class="col-3">
-                  <a href="index.html">
+                  <a href="{{ route('homepage') }}">
                      <iconify-icon icon="lucide:home"></iconify-icon>
                   </a>
                </div>
@@ -292,7 +292,7 @@
                   </div> -->
                <div class="col-10 middleNav">
                   <ul class="d-flex align-items-center justify-content-start">
-                     <li><a class="" href="index.html">Home</a></li>
+                     <li><a class="" href="{{ route('homepage') }}">Home</a></li>
                      <li class="desktopParent">
                         <a class="d-flex align-items-center" href="shop.html">Shop <iconify-icon
                               icon="iconamoon:arrow-down-2-bold"></iconify-icon></a>

@@ -36,18 +36,29 @@ iconify-icon {
   line-height: 10px !important;
 }
 
+.error {
+  color: red;
+  font-size: 14px;
+  margin: 0;
+  display: block;
+  font-weight: 400;
+}
+
 html,
 body {
   scroll-behavior: smooth;
 }
+
 ::-webkit-scrollbar {
   width: 7px;
   background: var(--gray-scale-white);
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--branding-success);
   border-radius: 50px;
 }
+
 :root {
   --gren-gray-scale-900: #002603;
   --gren-gray-scale-800: #173b1a;
@@ -529,6 +540,7 @@ nav .middleNav ul li a {
   color: var(--gray-scale-gray-–-500);
   transition: 0.3s;
 }
+
 /* nav .middleNav ul li a:first-child:hover {
   color: var(--branding-success);
 } */
@@ -561,12 +573,15 @@ nav .middleNav .desktopChild {
 .desktopChild li {
   margin: 5px 0;
 }
+
 .desktopChild li:hover a {
   color: #fff;
 }
+
 .desktopChild li a:hover a {
   color: #fff;
 }
+
 .desktopChild li:hover {
   background: var(--branding-success-dark);
 }
@@ -589,10 +604,12 @@ nav .quickCall a {
   line-height: 150%;
   color: var(--gray-scale-gray-–-900);
 }
+
 /* *Cart Sidebar Start */
 .cardProduct {
   height: 80%;
 }
+
 .checkoutBtnBox {
   height: 20%;
 }
@@ -603,12 +620,14 @@ nav .quickCall a {
   line-height: 150%;
   color: var(--gray-scale-gray-–-900);
 }
+
 .totalPrice {
   font-weight: 600;
   font-size: 16px;
   line-height: 120%;
   color: var(--gray-scale-gray-–-900);
 }
+
 .checkout {
   font-weight: 600;
   font-size: 16px;
@@ -621,6 +640,7 @@ nav .quickCall a {
   background: var(--branding-success);
   margin: 20px 0 15px;
 }
+
 .cart {
   border-radius: 43px;
   padding: 16px 40px;
@@ -632,6 +652,7 @@ nav .quickCall a {
   line-height: 120%;
   color: var(--branding-success);
 }
+
 /* *Cart Sidebar End */
 /* *Nam Menu Desktop End */
 
@@ -647,6 +668,7 @@ nav .quickCall a {
   user-select: none;
   background: #fff;
 }
+
 #banner .bgImages {
   pointer-events: none;
   cursor: none;
@@ -761,23 +783,19 @@ nav .quickCall a {
   object-fit: cover;
 }
 
-#banner
-  .swiper-horizontal
-  > .swiper-pagination-bullets.swiper-pagination-bullets-dynamic
-  .swiper-pagination-bullet,
-.swiper-pagination-horizontal.swiper-pagination-bullets.swiper-pagination-bullets-dynamic
-  .swiper-pagination-bullet,
-.swiper-pagination-bullet
-  .swiper-pagination-bullet-active
-  .swiper-pagination-bullet-active-main {
+#banner .swiper-horizontal>.swiper-pagination-bullets.swiper-pagination-bullets-dynamic .swiper-pagination-bullet,
+.swiper-pagination-horizontal.swiper-pagination-bullets.swiper-pagination-bullets-dynamic .swiper-pagination-bullet,
+.swiper-pagination-bullet .swiper-pagination-bullet-active .swiper-pagination-bullet-active-main {
   background: var(--branding-success-dark);
   color: var(--branding-success-dark);
 }
+
 /* button start */
 .swiper-button-next::after,
 .swiper-button-prev::after {
   content: '';
 }
+
 .swiper-button-next,
 .swiper-button-prev {
   background-color: var(--branding-success-dark);
@@ -797,9 +815,11 @@ nav .quickCall a {
 .swiper-button-next {
   right: 0.5rem;
 }
+
 .swiper-button-prev {
   left: 0.5rem;
 }
+
 /* button end */
 
 /* *Swipper End */
@@ -811,6 +831,7 @@ nav .quickCall a {
   transform: translateY(50%);
   cursor: pointer;
 }
+
 #features .featureCnt .featureCard {
   padding: 40px;
   width: 330px;
@@ -820,13 +841,16 @@ nav .quickCall a {
   background: var(--gray-scale-white);
   border-top: 1px solid var(--gren-gray-scale-100);
 }
+
 #features .featureCnt .featureCard:first-child {
   border-radius: 6px 0 0 6px;
 }
+
 #features .featureCnt .featureCard:last-child {
   border-right: none;
   border-radius: 0 6px 6px 0;
 }
+
 #features .featureCnt .featureCard .featureIcon {
   background: #fff;
   width: 70px;
@@ -839,6 +863,7 @@ nav .quickCall a {
   align-items: center;
   color: var(--branding-success-bright);
 }
+
 #features .featureCnt .featureCard .texts p {
   font-family: var(--font-family);
   font-weight: 600;
@@ -857,10 +882,12 @@ nav .quickCall a {
 #features .featureCnt .featureCard {
   transition: background 0.3s ease;
 }
+
 #features .featureCnt .featureCard:focus,
 #features .featureCnt .featureCard:hover {
   background: var(--branding-success);
 }
+
 #features .featureCnt .featureCard:hover .texts span,
 #features .featureCnt .featureCard:hover .texts p {
   color: #fff;
@@ -872,6 +899,7 @@ nav .quickCall a {
 #productMain {
   background: var(--gren-gray-scale-50);
 }
+
 #productMain .headers h2 {
   padding-top: 200px;
   font-family: var(--font-family);
@@ -881,12 +909,14 @@ nav .quickCall a {
   text-align: center;
   color: var(--gray-scale-gray-–-900);
 }
+
 #productMain .headers .navigation {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 24px;
 }
+
 #productMain .headers .navigation a {
   font-family: var(--font-family);
   font-weight: 500;
@@ -897,20 +927,25 @@ nav .quickCall a {
   padding: 0 10px;
   cursor: pointer;
 }
+
 #productMain .headers .navigation a:last-child {
   border-right: none;
 }
+
 #productMain .headers .navigation a:hover {
   color: var(--branding-success);
 }
+
 #productMain .headers .navigation a.active {
   color: var(--branding-success);
 }
+
 /* * Start Here */
 #ProductCardBox {
   margin: 24px;
   padding-bottom: 100px;
 }
+
 #ProductCardBox .cart {
   border: 1px solid var(--gray-scale-gray-–-100);
   border-radius: 8px;
@@ -948,6 +983,7 @@ nav .quickCall a {
   transition: 0.3s;
   color: var(--gray-scale-gray-–-900);
 }
+
 #ProductCardBox .cart:hover .iconBox {
   transform: translateX(0px);
   justify-content: space-between;
@@ -963,31 +999,37 @@ nav .quickCall a {
   left: 16px;
   background: var(--gray-scale-gray-–-900);
 }
+
 #ProductCardBox .cart .label span {
   font-weight: 400;
   font-size: 14px;
   color: var(--gray-scale-white);
 }
+
 /* *Label End Here */
 
 #ProductCardBox .cart .details {
   padding: 16px;
 }
+
 #ProductCardBox .cart a {
   font-weight: 400;
   font-size: 14px;
   color: var(--gray-scale-gray-–-700);
   transition: 0.3s;
 }
+
 #ProductCardBox .cart a:hover {
   color: var(--branding-success-dark);
 }
+
 #ProductCardBox .cart span {
   font-weight: 500;
   font-size: 16px;
   line-height: 150%;
   color: var(--gray-scale-gray-–-900);
 }
+
 #ProductCardBox .cart .oldPrice {
   font-weight: 400;
   font-size: 16px;
@@ -996,6 +1038,7 @@ nav .quickCall a {
   color: var(--gray-scale-gray-–-300);
   margin-left: 7px;
 }
+
 #ProductCardBox .cart .details .addCatdBtn iconify-icon {
   padding: 10px;
   border-radius: 50%;
@@ -1003,9 +1046,11 @@ nav .quickCall a {
   cursor: pointer;
   transition: 0.3s;
 }
+
 #ProductCardBox .cart .details .priceAndCard {
   height: 40px;
 }
+
 #ProductCardBox .cart .addCatdBtn iconify-icon:hover,
 #ProductCardBox .cart .addCatdBtn iconify-icon:focus {
   background: var(--branding-success);
@@ -1019,9 +1064,10 @@ nav .quickCall a {
 
 
 /* Drinks Section Start Here */
-#drinks{
+#drinks {
   padding: 20px 0;
 }
+
 /* Drinks Section End Here */
 
 /* *BEst Deals  START HERE */
@@ -1031,6 +1077,7 @@ nav .quickCall a {
   height: auto;
   padding-top: 40px;
 }
+
 #bestDeals .middleItems p {
   font-family: var(--font-family);
   font-weight: 500;
@@ -1040,6 +1087,7 @@ nav .quickCall a {
   text-align: center;
   color: var(--branding-success);
 }
+
 #bestDeals .middleItems h2 {
   font-family: var(--font-family);
   font-weight: 600;
@@ -1047,6 +1095,7 @@ nav .quickCall a {
   text-align: center;
   color: var(--gren-gray-scale-900);
 }
+
 #bestDeals .middleItems button {
   border-radius: 43px;
   padding: 16px 40px;
@@ -1071,6 +1120,7 @@ nav .quickCall a {
   margin: 0px 10px;
   padding-top: 10px;
 }
+
 #bestDeals .middleItems .countTime div p {
   font-family: var(--font-family);
   font-weight: 400;
@@ -1078,6 +1128,7 @@ nav .quickCall a {
   text-align: center;
   color: var(--branding-success);
 }
+
 #bestDeals .middleItems .countTime div span {
   font-family: var(--font-family);
   font-weight: 500;
@@ -1094,10 +1145,12 @@ nav .quickCall a {
 #featureProduct {
   width: 100%;
 }
+
 #featureProduct .swiper {
   width: 100%;
   height: 100%;
 }
+
 #featureProduct .swiper-slide {
   text-align: center;
   font-size: 18px;
@@ -1113,6 +1166,7 @@ nav .quickCall a {
   height: 100%;
   object-fit: cover;
 }
+
 #featureProduct .head {
   font-family: var(--font-family);
   font-weight: 600;
@@ -1129,6 +1183,7 @@ nav .quickCall a {
   background: #edf2ee;
   padding-bottom: 460px;
 }
+
 #review .head {
   font-family: var(--font-family);
   font-weight: 600;
@@ -1138,6 +1193,7 @@ nav .quickCall a {
   padding-top: 100px;
   margin-bottom: 43px;
 }
+
 #review .reviewCnt {
   border: 1px solid var(--gray-scale-gray-–-100);
   border-radius: 10px;
@@ -1146,9 +1202,11 @@ nav .quickCall a {
   background: var(--gray-scale-white);
   margin: 0 12px;
 }
+
 #review .reviewCnt img {
   margin: 32px 0 24px;
 }
+
 #review .reviewCnt p {
   font-family: var(--font-family);
   font-weight: 400;
@@ -1157,6 +1215,7 @@ nav .quickCall a {
   width: 360px;
   margin: auto;
 }
+
 #review .client p {
   font-family: var(--font-family);
   font-weight: 500;
@@ -1165,6 +1224,7 @@ nav .quickCall a {
   color: var(--gren-gray-scale-900);
   margin-top: 14px;
 }
+
 #review .client span {
   font-family: var(--font-family);
   font-weight: 400;
@@ -1180,9 +1240,11 @@ nav .quickCall a {
   transform: translateY(-50%);
   cursor: pointer;
 }
+
 #video {
   position: relative;
 }
+
 #video video {
   position: absolute;
   top: 50%;
@@ -1197,6 +1259,7 @@ nav .quickCall a {
   margin-top: -389px !important;
   transform: translateY(30%);
 }
+
 #latestNews .head {
   font-family: var(--font-family);
   font-weight: 600;
@@ -1204,6 +1267,7 @@ nav .quickCall a {
   text-align: center;
   color: var(--gren-gray-scale-900);
 }
+
 #latestNews .newsCnt {
   border-radius: 8px;
   width: 424px;
@@ -1211,9 +1275,11 @@ nav .quickCall a {
   background: var(--gray-scale-white);
   margin-top: 50px;
 }
+
 #latestNews .newsCnt .image {
   position: relative;
 }
+
 .date {
   border-radius: 4px;
   padding: 6px 15px 10px 15px;
@@ -1224,12 +1290,14 @@ nav .quickCall a {
   bottom: 10px;
   left: 40px;
 }
+
 .date p {
   font-family: var(--font-family);
   font-weight: 500;
   font-size: 15px;
   color: var(--gray-scale-gray-–-900);
 }
+
 .date span {
   font-family: var(--font-family);
   font-weight: 500;
@@ -1238,16 +1306,19 @@ nav .quickCall a {
   text-transform: uppercase;
   color: var(--gray-scale-gray-–-500);
 }
+
 #latestNews .newsCnt .text {
   margin-left: 24px;
   margin-top: 24px;
 }
+
 #latestNews .newsCnt .text p {
   font-family: var(--font-family);
   font-weight: 500;
   font-size: 18px;
   color: var(--gren-gray-scale-900);
 }
+
 #latestNews .newsCnt .text span {
   font-family: var(--font-family);
   font-weight: 400;
@@ -1255,6 +1326,7 @@ nav .quickCall a {
   color: var(--gren-gray-scale-500);
   margin: 8px 0;
 }
+
 #latestNews .newsCnt .text a {
   display: block;
   font-family: var(--font-family);
@@ -1362,6 +1434,7 @@ nav .quickCall a {
   top: 0;
   z-index: 100;
 }
+
 #popup .popup2 {
   position: fixed;
   width: 872px;
@@ -1374,6 +1447,7 @@ nav .quickCall a {
   transform: translate(-50%, -50%);
   border-radius: 5px;
 }
+
 @keyframes popupIn {
   0% {
     /* left: 50%;
@@ -1381,6 +1455,7 @@ nav .quickCall a {
         transform: translateY(-100%); */
     opacity: 0;
   }
+
   100% {
     /* left: 50%;
         top: 50%;
@@ -1388,11 +1463,13 @@ nav .quickCall a {
     opacity: 1;
   }
 }
+
 #popup .close-btn {
   position: absolute;
   top: 10px;
   cursor: pointer;
 }
+
 #popup .popText h3 {
   font-family: var(--font-family);
   font-weight: 600;
@@ -1400,6 +1477,7 @@ nav .quickCall a {
   text-align: center;
   color: var(--gray-scale-gray-–-900);
 }
+
 #popup .popText .sub {
   font-family: var(--font-family);
   font-weight: 400;
@@ -1409,10 +1487,12 @@ nav .quickCall a {
   margin: 12px 0 24px 0;
   width: 400px;
 }
+
 #popup .popText p span {
   font-weight: 600;
   color: var(--branding-warning);
 }
+
 #popup .popText .dontShow p {
   font-family: var(--font-family);
   font-weight: 400;
@@ -1420,9 +1500,11 @@ nav .quickCall a {
   color: var(--gray-scale-gray-–-600);
   margin-left: 5px;
 }
+
 #popup .popText .subscribe {
   position: relative;
 }
+
 #popup .popText .subscribe input {
   border: 1px solid var(--gray-scale-gray-–-100);
   border-radius: 46px;
@@ -1432,6 +1514,7 @@ nav .quickCall a {
   background: var(--gray-scale-white);
   outline: none;
 }
+
 #popup .popText .subscribe button {
   border-radius: 43px;
   padding: 15px 40px 14px 40px;

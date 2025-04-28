@@ -27,15 +27,22 @@
       <!-- *Sign In Start Here -->
       <section id="signIn" class="signIn">
          <div class="container">
-            <form action="" method="">
+            <form action="{{ route('login') }}" method="POST">
+               @csrf
                <h1 class="text-center">Sign In</h1>
-               <input type="email" placeholder="Email" required>
+               <input type="email" name="email" placeholder="Email" >
+               @error('email')
+                  <span class="error">{{ $message }}</span>
+               @enderror
                <div class="passwordBox">
-                  <input type="password" id="passwordInputSignIn" placeholder="Password" required>
+                  <input name="password" type="password" id="passwordInputSignIn" placeholder="Password" required>
                   <span class="pasToggl">
                      <iconify-icon icon="ion:eye-off-outline" width="25" height="25" style="color: #000"></iconify-icon>
                   </span>
                </div>
+               @error('password')
+                  <span class="error">{{ $message }}</span>
+               @enderror
 
                <div class="d-flex justify-content-between align-items-center checkbox">
                   <label for="checkboxSignIn" class="d-flex align-items-center">

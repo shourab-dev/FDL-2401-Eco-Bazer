@@ -32,13 +32,13 @@
                <h1 class="text-center">Create Account</h1>
                <input type="text" placeholder="User Name"  name="name">
                @error('name')
-                  <span class="invalid-feedback" role="alert">
+                  <span class="error" role="alert">
                      <strong>{{ $message }}</strong>
                   </span>
                @enderror
                <input type="email" placeholder="Email"  name="email">
                @error('email')
-               <span class="invalid-feedback" role="alert">
+               <span class="error" role="alert">
                   <strong>{{ $message }}</strong>
                </span>
             @enderror
@@ -49,7 +49,7 @@
                   </span>
                </div>
                @error('password')
-                  <span class="invalid-feedback" role="alert">
+                  <span class="error" role="alert">
                      <strong>{{ $message }}</strong>
                   </span>
                @enderror
