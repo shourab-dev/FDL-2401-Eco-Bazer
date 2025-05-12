@@ -19,6 +19,9 @@
                             @enderror
                         </div>
                         <div class="form-group my-2">
+                            @if (isset($editedBrand->icon))
+                            <img src="{{ asset('storage/'. $editedBrand->icon) }}" alt="" class="w-50">
+                            @endif
                             <label for="">Brand Icon</label>
                             <input type="file" name="icon"  class="form-control">
                             @error('icon')

@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\Backend\BrandController;
-use App\Http\Controllers\Backend\CategoryController;
-use App\Http\Controllers\Backend\DashboardController;
-use App\Http\Controllers\Frontend\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Backend\BrandController;
+use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\DashboardController;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('homepage');
@@ -33,3 +34,18 @@ Route::middleware('auth')->prefix('/backend/brands')->name('brand.')->controller
     Route::get('/delete/{id}', 'delete')->name('delete');
 });
 
+
+//* Products
+Route::middleware('auth')
+->prefix('backend/products')
+->name('products.')
+->controller(ProductController::class)
+->group(function(){
+    Route::get('/', 'index')->name('index');
+    Route::get('/show/{id}', 'show')->name('show');
+    Route::get('create', 'create')->name('create');
+    Route::post('store', 'store')->name('store');
+    Route::get('/edit/{id}', 'edit')->name('edit');
+    Route::post('/update/{id}', 'update')->name('update');
+    Route::post('/live-categories', 'liveCategory')->name('live.category');
+});

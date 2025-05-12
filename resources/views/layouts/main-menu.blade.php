@@ -23,41 +23,24 @@
 
 </li>
 
-
-
-
-<!-- Layouts -->
-{{-- <li class="menu-item">
+<li class="menu-item {{ request()->routeIs('products.*') ? 'active open' : '' }}">
     <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons bx bx-layout"></i>
-        <div class="text-truncate" data-i18n="Layouts">Layouts</div>
+
+        <i class='menu-icon bx bx-package'></i>
+        <div class="text-truncate" data-i18n="Layouts">Products</div>
     </a>
 
     <ul class="menu-sub">
         <li class="menu-item">
-            <a href="layouts-without-menu.html" class="menu-link">
-                <div class="text-truncate" data-i18n="Without menu">Without menu</div>
+            <a href="{{ route('products.create') }}" class="menu-link">
+                <div class="text-truncate" data-i18n="Without menu">Add Product</div>
             </a>
         </li>
         <li class="menu-item">
-            <a href="layouts-without-navbar.html" class="menu-link">
-                <div class="text-truncate" data-i18n="Without navbar">Without navbar</div>
+            <a href="{{ route('products.index') }}" class="menu-link">
+                <div class="text-truncate" data-i18n="Without menu">All Products</div>
             </a>
         </li>
-        <li class="menu-item">
-            <a href="layouts-fluid.html" class="menu-link">
-                <div class="text-truncate" data-i18n="Fluid">Fluid</div>
-            </a>
-        </li>
-        <li class="menu-item">
-            <a href="layouts-container.html" class="menu-link">
-                <div class="text-truncate" data-i18n="Container">Container</div>
-            </a>
-        </li>
-        <li class="menu-item">
-            <a href="layouts-blank.html" class="menu-link">
-                <div class="text-truncate" data-i18n="Blank">Blank</div>
-            </a>
-        </li>
+       
     </ul>
-</li> --}}
+</li>

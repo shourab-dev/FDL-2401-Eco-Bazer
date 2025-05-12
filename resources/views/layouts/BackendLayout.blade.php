@@ -11,7 +11,7 @@
   <title>@yield('title','Page') - {{ env('APP_NAME') }}</title>
 
   <meta name="description" content="" />
-
+  @notifyCss
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="{{ asset('backend/assets/img/favicon/favicon.ico') }}" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -19,19 +19,45 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
     rel="stylesheet" />
-
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="{{ asset('backend/assets/vendor/fonts/iconify-icons.css') }}" />
   <link rel="stylesheet" href="{{ asset('backend/assets/vendor/css/core.css') }}" />
   <link rel="stylesheet" href="{{ asset('backend/assets/css/demo.css') }}" />
   <link rel="stylesheet" href="{{ asset('backend/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
   <link rel="stylesheet" href="{{ asset('backend/assets/vendor/libs/apex-charts/apex-charts.css') }}" />
+  <style>
+    #laravel-notify {
+      position: absolute;
+      z-index: 9999999;
+    }
 
+    .select2 {
+      width: 100% !important;
+      display: block;
+    }
+
+    .select2-selection {
+      height: 45px !important;
+    }
+
+    .select2-selection__rendered {
+      height: 100% !important;
+      line-height: 45px !important;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  </style>
+  @stack('styles')
   <!-- Page CSS -->
   <script src="{{ asset('backend/assets/vendor/js/helpers.js') }}"></script>
   <script src="{{ asset('backend/assets/js/config.js') }}"></script>
 </head>
 
 <body>
+  @include('notify::components.notify')
   <!-- Layout wrapper -->
   <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
@@ -222,6 +248,8 @@
   <script src="{{ asset('backend/assets/js/main.js') }}"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="{{ asset('backend/assets/js/dashboards-analytics.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  @notifyJs
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   @stack('scripts')
 </body>
