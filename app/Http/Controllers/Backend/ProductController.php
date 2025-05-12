@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Models\Brand;
+use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -20,7 +21,25 @@ class ProductController extends Controller
 
 
   function store(Request $request){
-    dd($request->all());
+    
+    $product = new Product();
+    $product->title = $request->title;
+    $product->price = $request->price;
+    $product->selling_price = $request->selling_price;
+    $product->qty = $request->qty;
+    $product->brand_id = $request->brand;
+    $product->category_id = $request->category;
+    $product->short_detail = $request->short_detail;
+    $product->long_detail = $request->long_detail;
+    $product->alert_qty = $request->alert_qty ?? 0;
+    $product->sku = $request->sku;
+    $product->addtional_info = $request->addtional_info;
+    $product->video = $request->video_url;
+    $product->slug = $request->slug ?? str($request->title)->slug();
+    $product->save();
+    
+
+
   }
 
 
