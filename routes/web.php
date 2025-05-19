@@ -44,7 +44,7 @@ Route::middleware('auth')
     Route::get('/', 'index')->name('index');
     Route::get('/show/{id}', 'show')->name('show');
     Route::get('create', 'create')->name('create');
-    Route::post('store', 'store')->name('store');
+    Route::post('store/{id?}', 'store')->name('store');
     Route::get('/edit/{id}', 'edit')->name('edit');
     Route::post('/update/{id}', 'update')->name('update');
     Route::post('/live-categories', 'liveCategory')->name('live.category');

@@ -31,6 +31,7 @@
                 <div class="col-lg-6">
                     <div class="form-group">
                         <input class="form-control" name="title" type="text" placeholder="Enter your product name">
+
                     </div>
                     @error('title')
                     <span class="text-danger">{{ $message }}</span>
@@ -112,6 +113,9 @@
                 <div class="col-lg-6">
                     <label for="">Featured Image</label>
                     <input id="featuredImage" name="featuredImage" class="form-control" type="file">
+                    @error('featuredImage')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
                 <div class="col-lg-6">
                     <label for="">Gallery Images</label>
@@ -143,8 +147,7 @@
 @push('scripts')
 <script src="{{ asset('backend/assets/js/rte.js') }}"></script>
 <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
-<!-- Plugin: File Encode -->
-<script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.min.js"></script>
+
 <script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
 <script src="https://unpkg.com/jquery-filepond/filepond.jquery.js"></script>
 <script src="{{ asset('backend/assets/js/all_plugins.js') }}"></script>
@@ -176,23 +179,25 @@
         });
         $('.select-brand').select2();
 
-        const pond = FilePond.create(document.querySelector('#featuredImage'), {
+       
+       $('#featuredImage').filepond({
         allowImagePreview: true,
-        instantUpload: false,
+        allowReorder:true,
+        storeAsFile: true,
+        });
+        
+        $('#galleryImages').filepond({
+        allowImagePreview: true,
+        allowMultipleImages: true,
+        allowReorder:true,
+        storeAsFile: true,
         });
 
-        $('#featuredImage').on('FilePond:addfile', function (e) {
-            const formData = new FormData($('form')[0]);
-             pond.getFiles().forEach(fileItem => {
-            formData.append('featuredImage', fileItem.file); // 'featuredImage' is the name attribute
-            });
-        });
-        $('#galleryImages').filepond({
-            allowImagePreview: true,
-            allowMultipleImages: true,
-            allowReorder:true,
-            allowFileEncode: true,
-        });
+        $('input[name="title"]').keyup(function(){
+            let title = $(this).val().replaceAll(' ', '-').toLowerCase();
+            $('input[name="slug"]').val(title)
+        })
+
     });
 </script>
 @endpush
