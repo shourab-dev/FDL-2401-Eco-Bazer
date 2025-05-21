@@ -243,16 +243,18 @@
          <!-- Product start here -->
          <section id="ProductCardBox">
             <div class="container productFilter">
+               @forelse($products as $product)
                <div class="cart VegetablesCard">
                   <a href="#">
                      <div class="imgBox">
-                        <img class="img-fluid" src="{{ asset('frontend/assets/img/Image.png')}}" alt="">
+                        <img class="img-fluid" src="{{ asset('storage/'. $product->featured_image)}}" alt="{{ $product->title }}">
                      </div>
                      <div class="details">
-                        <a href="#">Big Potatos</a>
+                        <a href="#">{{ $product->title }}</a>
                         <div class="priceAndCard d-flex align-items-center justify-content-between">
                            <div class="price">
-                              <span class="col-2">$14.99</span>
+                              <span class="col-2">${{ $product->selling_price }}</span>
+                              <span class="col-2" style="text-decoration: line-through;">${{ $product->price }}</span>
                            </div>
                            <span class="text-end col-6 addCatdBtn">
                               <iconify-icon icon="ph:handbag" width="20" height="20"></iconify-icon>
@@ -283,29 +285,14 @@
                   <!-- *Hover Effect End Here -->
 
                </div>
+               @empty
                <div class="cart VegetablesCard">
                   <a href="#">
                      <div class="imgBox">
-                        <img class="img-fluid" src="{{ asset('frontend/assets/img/Chanise.png')}}" alt="">
+                        <img class="img-fluid" src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png?20210521171500" alt="">
                      </div>
                      <div class="details">
-                        <a href="#">Chanise Cabbage</a>
-                        <div class="priceAndCard d-flex align-items-center justify-content-between">
-                           <div class="price">
-                              <span class="col-2">$14.99</span>
-                           </div>
-                           <span class="text-end col-6 addCatdBtn">
-                              <iconify-icon icon="ph:handbag" width="20" height="20"></iconify-icon>
-                           </span>
-                        </div>
-                        <div class="review">
-                           <iconify-icon icon="twemoji:star" width="20" height="20"></iconify-icon>
-                           <iconify-icon icon="twemoji:star" width="20" height="20"></iconify-icon>
-                           <iconify-icon icon="twemoji:star" width="20" height="20"></iconify-icon>
-                           <iconify-icon icon="twemoji:star" width="20" height="20"></iconify-icon>
-                           <iconify-icon icon="heroicons:star-20-solid" width="20" height="20"
-                              style="color: #b3b3b3"></iconify-icon>
-                        </div>
+                        <a href="#">No Products Found!</a>
                      </div>
                   </a>
 
@@ -321,261 +308,8 @@
                   </div>
 
                   <!-- *Hover Effect End Here -->
-
                </div>
-               <div class="cart FruitCard">
-                  <a href="#">
-                     <div class="imgBox">
-                        <img class="img-fluid" src="{{ asset('frontend/assets/img/Ladies.png')}}" alt="">
-                     </div>
-                     <div class="details">
-                        <a href="#">Ladies Finger</a>
-                        <div class="priceAndCard d-flex align-items-center justify-content-between">
-                           <div class="price">
-                              <span class="col-2">$14.99</span>
-                              <span class="col-3 oldPrice">$20.99</span>
-                           </div>
-                           <span class="text-end col-6 addCatdBtn">
-                              <iconify-icon icon="ph:handbag" width="20" height="20"></iconify-icon>
-                           </span>
-                        </div>
-                        <div class="review">
-                           <iconify-icon icon="twemoji:star" width="20" height="20"></iconify-icon>
-                           <iconify-icon icon="twemoji:star" width="20" height="20"></iconify-icon>
-                           <iconify-icon icon="twemoji:star" width="20" height="20"></iconify-icon>
-                           <iconify-icon icon="twemoji:star" width="20" height="20"></iconify-icon>
-                           <iconify-icon icon="heroicons:star-20-solid" width="20" height="20"
-                              style="color: #b3b3b3"></iconify-icon>
-                        </div>
-                     </div>
-                  </a>
-
-                  <!-- *Hover Effect Start Here -->
-
-                  <div class="iconBox">
-                     <div class="Wishlist">
-                        <iconify-icon icon="meteor-icons:heart" width="20" height="20"></iconify-icon>
-                     </div>
-                     <div class="View">
-                        <iconify-icon icon="ant-design:eye-outlined" width="20" height="20"></iconify-icon>
-                     </div>
-                  </div>
-
-                  <!-- *Hover Effect End Here -->
-
-                  <!-- *Label Start Here -->
-                  <div class="label">
-                     <span>Out of Stock</span>
-                  </div>
-                  <!-- *Label End Here -->
-
-
-               </div>
-               <div class="cart VegetablesCard">
-                  <a href="#">
-                     <div class="imgBox">
-                        <img class="img-fluid" src="{{ asset('frontend/assets/img/Eggplant.png')}}" alt="">
-                     </div>
-                     <div class="details">
-                        <a href="#">Eggplant</a>
-                        <div class="priceAndCard d-flex align-items-center justify-content-between">
-                           <div class="price">
-                              <span class="col-2">$14.99</span>
-                              <span class="col-3 oldPrice">$20.99</span>
-                           </div>
-                           <span class="text-end col-6 addCatdBtn">
-                              <iconify-icon icon="ph:handbag" width="20" height="20"></iconify-icon>
-                           </span>
-                        </div>
-                        <div class="review">
-                           <iconify-icon icon="twemoji:star" width="20" height="20"></iconify-icon>
-                           <iconify-icon icon="twemoji:star" width="20" height="20"></iconify-icon>
-                           <iconify-icon icon="twemoji:star" width="20" height="20"></iconify-icon>
-                           <iconify-icon icon="twemoji:star" width="20" height="20"></iconify-icon>
-                           <iconify-icon icon="heroicons:star-20-solid" width="20" height="20"
-                              style="color: #b3b3b3"></iconify-icon>
-                        </div>
-                     </div>
-                  </a>
-
-                  <!-- *Hover Effect Start Here -->
-
-                  <div class="iconBox">
-                     <div class="Wishlist">
-                        <iconify-icon icon="meteor-icons:heart" width="20" height="20"></iconify-icon>
-                     </div>
-                     <div class="View">
-                        <iconify-icon icon="ant-design:eye-outlined" width="20" height="20"></iconify-icon>
-                     </div>
-                  </div>
-
-                  <!-- *Hover Effect End Here -->
-
-               </div>
-               <div class="cart CookingCard">
-                  <a href="#">
-                     <div class="imgBox">
-                        <img class="img-fluid" src="{{ asset('frontend/assets/img/Fresh.png')}}" alt="">
-                     </div>
-                     <div class="details">
-                        <a href="#">Fresh Cauliflower</a>
-                        <div class="priceAndCard d-flex align-items-center justify-content-between">
-                           <div class="price">
-                              <span class="col-2">$14.99</span>
-                              <span class="col-3 oldPrice">$20.99</span>
-                           </div>
-                           <span class="text-end col-6 addCatdBtn">
-                              <iconify-icon icon="ph:handbag" width="20" height="20"></iconify-icon>
-                           </span>
-                        </div>
-                        <div class="review">
-                           <iconify-icon icon="twemoji:star" width="20" height="20"></iconify-icon>
-                           <iconify-icon icon="twemoji:star" width="20" height="20"></iconify-icon>
-                           <iconify-icon icon="twemoji:star" width="20" height="20"></iconify-icon>
-                           <iconify-icon icon="twemoji:star" width="20" height="20"></iconify-icon>
-                           <iconify-icon icon="heroicons:star-20-solid" width="20" height="20"
-                              style="color: #b3b3b3"></iconify-icon>
-                        </div>
-                     </div>
-                  </a>
-
-                  <!-- *Hover Effect Start Here -->
-
-                  <div class="iconBox">
-                     <div class="Wishlist">
-                        <iconify-icon icon="meteor-icons:heart" width="20" height="20"></iconify-icon>
-                     </div>
-                     <div class="View">
-                        <iconify-icon icon="ant-design:eye-outlined" width="20" height="20"></iconify-icon>
-                     </div>
-                  </div>
-
-                  <!-- *Hover Effect End Here -->
-
-               </div>
-               <div class="cart FruitCard">
-                  <a href="#">
-                     <div class="imgBox">
-                        <img class="img-fluid" src="{{ asset('frontend/assets/img/GreenApple.png')}}" alt="">
-                     </div>
-                     <div class="details">
-                        <a href="#">Green Apple</a>
-                        <div class="priceAndCard d-flex align-items-center justify-content-between">
-                           <div class="price">
-                              <span class="col-2">$14.99</span>
-                              <span class="col-3 oldPrice">$20.99</span>
-                           </div>
-                           <span class="text-end col-6 addCatdBtn">
-                              <iconify-icon icon="ph:handbag" width="20" height="20"></iconify-icon>
-                           </span>
-                        </div>
-                        <div class="review">
-                           <iconify-icon icon="twemoji:star" width="20" height="20"></iconify-icon>
-                           <iconify-icon icon="twemoji:star" width="20" height="20"></iconify-icon>
-                           <iconify-icon icon="twemoji:star" width="20" height="20"></iconify-icon>
-                           <iconify-icon icon="twemoji:star" width="20" height="20"></iconify-icon>
-                           <iconify-icon icon="heroicons:star-20-solid" width="20" height="20"
-                              style="color: #b3b3b3"></iconify-icon>
-                        </div>
-                     </div>
-                  </a>
-
-                  <!-- *Hover Effect Start Here -->
-
-                  <div class="iconBox">
-                     <div class="Wishlist">
-                        <iconify-icon icon="meteor-icons:heart" width="20" height="20"></iconify-icon>
-                     </div>
-                     <div class="View">
-                        <iconify-icon icon="ant-design:eye-outlined" width="20" height="20"></iconify-icon>
-                     </div>
-                  </div>
-
-                  <!-- *Hover Effect End Here -->
-
-               </div>
-               <div class="cart VegetablesCard">
-                  <a href="#">
-                     <div class="imgBox">
-                        <img class="img-fluid" src="{{ asset('frontend/assets/img/GreenCapsicum.png')}}" alt="">
-                     </div>
-                     <div class="details">
-                        <a href="#">Green Capsicum</a>
-                        <div class="priceAndCard d-flex align-items-center justify-content-between">
-                           <div class="price">
-                              <span class="col-2">$14.99</span>
-                              <span class="col-3 oldPrice">$20.99</span>
-                           </div>
-                           <span class="text-end col-6 addCatdBtn">
-                              <iconify-icon icon="ph:handbag" width="20" height="20"></iconify-icon>
-                           </span>
-                        </div>
-                        <div class="review">
-                           <iconify-icon icon="twemoji:star" width="20" height="20"></iconify-icon>
-                           <iconify-icon icon="twemoji:star" width="20" height="20"></iconify-icon>
-                           <iconify-icon icon="twemoji:star" width="20" height="20"></iconify-icon>
-                           <iconify-icon icon="twemoji:star" width="20" height="20"></iconify-icon>
-                           <iconify-icon icon="heroicons:star-20-solid" width="20" height="20"
-                              style="color: #b3b3b3"></iconify-icon>
-                        </div>
-                     </div>
-                  </a>
-
-                  <!-- *Hover Effect Start Here -->
-
-                  <div class="iconBox">
-                     <div class="Wishlist">
-                        <iconify-icon icon="meteor-icons:heart" width="20" height="20"></iconify-icon>
-                     </div>
-                     <div class="View">
-                        <iconify-icon icon="ant-design:eye-outlined" width="20" height="20"></iconify-icon>
-                     </div>
-                  </div>
-
-                  <!-- *Hover Effect End Here -->
-
-               </div>
-               <div class="cart VegetablesCard">
-                  <a href="#">
-                     <div class="imgBox">
-                        <img class="img-fluid" src="{{ asset('frontend/assets/img/GreenChili.png')}}" alt="">
-                     </div>
-                     <div class="details">
-                        <a href="#">Green Chili</a>
-                        <div class="priceAndCard d-flex align-items-center justify-content-between">
-                           <div class="price">
-                              <span class="col-2">$14.99</span>
-                              <span class="col-3 oldPrice">$20.99</span>
-                           </div>
-                           <span class="text-end col-6 addCatdBtn">
-                              <iconify-icon icon="ph:handbag" width="20" height="20"></iconify-icon>
-                           </span>
-                        </div>
-                        <div class="review">
-                           <iconify-icon icon="twemoji:star" width="20" height="20"></iconify-icon>
-                           <iconify-icon icon="twemoji:star" width="20" height="20"></iconify-icon>
-                           <iconify-icon icon="twemoji:star" width="20" height="20"></iconify-icon>
-                           <iconify-icon icon="twemoji:star" width="20" height="20"></iconify-icon>
-                           <iconify-icon icon="heroicons:star-20-solid" width="20" height="20"
-                              style="color: #b3b3b3"></iconify-icon>
-                        </div>
-                     </div>
-                  </a>
-
-                  <!-- *Hover Effect Start Here -->
-
-                  <div class="iconBox">
-                     <div class="Wishlist">
-                        <iconify-icon icon="meteor-icons:heart" width="20" height="20"></iconify-icon>
-                     </div>
-                     <div class="View">
-                        <iconify-icon icon="ant-design:eye-outlined" width="20" height="20"></iconify-icon>
-                     </div>
-                  </div>
-
-                  <!-- *Hover Effect End Here -->
-
-               </div>
+               @endforelse
            </div>           
          </section>
       </section>
