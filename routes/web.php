@@ -7,7 +7,7 @@ use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\DashboardController;
-
+use App\Http\Controllers\Frontend\CartController;
 
 Route::get('/', [HomeController::class, 'index'])->name('homepage');
 
@@ -20,32 +20,40 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 //* Categories
 Route::middleware('auth')->prefix('/backend/categories')->name('category.')->controller(CategoryController::class)
-->group(function(){
-    Route::get('/{id?}', 'index')->name('index');
-    Route::post('/store-or-update/{id?}', 'storeOrUpdate')->name('store');
-    Route::get('/delete/{id}', 'delete')->name('delete');
-});
+    ->group(function () {
+        Route::get('/{id?}', 'index')->name('index');
+        Route::post('/store-or-update/{id?}', 'storeOrUpdate')->name('store');
+        Route::get('/delete/{id}', 'delete')->name('delete');
+    });
 
 //* Brands
 Route::middleware('auth')->prefix('/backend/brands')->name('brand.')->controller(BrandController::class)
-->group(function(){
-    Route::get('/{id?}', 'index')->name('index');
-    Route::post('/store-or-update/{id?}', 'storeOrUpdate')->name('store');
-    Route::get('/delete/{id}', 'delete')->name('delete');
-});
+    ->group(function () {
+        Route::get('/{id?}', 'index')->name('index');
+        Route::post('/store-or-update/{id?}', 'storeOrUpdate')->name('store');
+        Route::get('/delete/{id}', 'delete')->name('delete');
+    });
 
 
 //* Products
 Route::middleware('auth')
-->prefix('backend/products')
-->name('products.')
-->controller(ProductController::class)
-->group(function(){
-    Route::get('/', 'index')->name('index');
-    Route::get('/show/{id}', 'show')->name('show');
-    Route::get('create', 'create')->name('create');
-    Route::post('store/{id?}', 'store')->name('store');
-    Route::get('/edit/{id}', 'edit')->name('edit');
-    Route::post('/update/{id}', 'update')->name('update');
-    Route::post('/live-categories', 'liveCategory')->name('live.category');
-});
+    ->prefix('backend/products')
+    ->name('products.')
+    ->controller(ProductController::class)
+    ->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/show/{id}', 'show')->name('show');
+        Route::get('create', 'create')->name('create');
+        Route::post('store/{id?}', 'store')->name('store');
+        Route::get('/edit/{id}', 'edit')->name('edit');
+        Route::post('/update/{id}', 'update')->name('update');
+        Route::post('/live-categories', 'liveCategory')->name('live.category');
+    });
+
+//* Add to cart
+Route::get('/add-to-cart/{id}', [CartController::class, 'addToCart'])->name('addToCart');
+Route::get('/cart', [CartController::class, 'cart'])->name('cart');
+Route::post('/cart-update', [CartController::class, 'cartUpdate'])->name('cartUpdate');
+Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove.ajax');
+
+Route::post('/checkout', [CartController::class, 'checkout'])->name('checkout');
