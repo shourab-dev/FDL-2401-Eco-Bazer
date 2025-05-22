@@ -49,3 +49,17 @@ Route::middleware('auth')
     Route::post('/update/{id}', 'update')->name('update');
     Route::post('/live-categories', 'liveCategory')->name('live.category');
 });
+
+//* BANNER
+
+use App\Http\Controllers\Backend\BannerController;
+
+Route::middleware('auth')->prefix('/backend/banners')->name('banner.')->controller(BannerController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/create', 'create')->name('create');
+    Route::post('/store', 'store')->name('store');
+    Route::get('/edit/{id}', 'edit')->name('edit');
+    Route::post('/update/{id}', 'update')->name('update');
+    Route::get('/delete/{id}', 'delete')->name('delete');
+     Route::get('/toggle-status/{id}', 'toggleStatus')->name('toggle.status');
+});
