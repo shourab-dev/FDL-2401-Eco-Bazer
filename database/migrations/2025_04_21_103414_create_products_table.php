@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('featured_image')->nullable();
             $table->json('gallery_images')->nullable();
             $table->string('additional_info')->nullable();
+            $table->boolean('status')->default(true);
             $table->string('video')->nullable();
             $table->timestamps();
         });

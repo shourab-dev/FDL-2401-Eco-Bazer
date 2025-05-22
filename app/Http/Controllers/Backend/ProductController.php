@@ -69,6 +69,7 @@ class ProductController extends Controller
     $product->sku = $request->sku;
     $product->additional_info = $request->additional_info;
     $product->video = $request->video_url;
+    $product->status = $request->status ?? true;
 
     $product->save();
     return back();
@@ -119,5 +120,10 @@ class ProductController extends Controller
     }
 
     return response()->json($resArr);
+  }
+
+  function index(){
+    $products = Product::get();
+    return view('Backend.Products.index', compact('products'));
   }
 }
