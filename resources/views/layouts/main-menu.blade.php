@@ -44,3 +44,12 @@
        
     </ul>
 </li>
+
+{{-- Banner --}}
+
+<li class="menu-item {{ request()->routeIs('banner.*') ? 'active open' : '' }}">
+    <a href="{{ route('banner.index') }}" class="menu-link ">
+        <i class='menu-icon bx bx-image'></i>
+        <div class="text-truncate" data-i18n="Banners">Manage Banners</div>
+    </a>
+</li>
