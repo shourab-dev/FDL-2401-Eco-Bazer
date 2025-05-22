@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->bigInteger('price');
             $table->bigInteger('selling_price')->nullable();
+            $table->boolean('status')->default(1);
             $table->string('sku')->nullable();
             $table->integer('qty')->default(0);
             $table->integer('alert_qty')->nullable();

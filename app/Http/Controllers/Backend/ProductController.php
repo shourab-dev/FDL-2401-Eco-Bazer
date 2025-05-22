@@ -120,4 +120,8 @@ class ProductController extends Controller
 
     return response()->json($resArr);
   }
+  function index(){
+    $products = Product::paginate(3);
+    return view('backend.products.show', compact('products'));
+  }
 }
