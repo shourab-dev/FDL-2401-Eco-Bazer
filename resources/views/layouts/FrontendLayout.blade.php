@@ -82,82 +82,57 @@
                     <div class="col-lg-3 d-flex align-items-center justify-content-end actionLinks">
                         <iconify-icon icon="solar:heart-outline"></iconify-icon>
 
-                        @php
-                        $cart = session('cart', []);
-                        $total = 0;
-                        foreach ($cart as $item) {
-                        $price = $item['price'] ?? 0;
-                        $quantity = $item['quantity'] ?? 0;
-                        $total += $price * $quantity;
-                        }
-                        @endphp
-
                         <!-- Cart Icon -->
                         <div class="cartIcon">
                             <button type="button" data-bs-toggle="offcanvas" data-bs-target="#cartSideBar"
                                 aria-controls="cartSideBar">
                                 <iconify-icon icon="lets-icons:bag-alt"></iconify-icon>
-                                <div class="quantity">{{ count($cart) }}</div>
+                                <div class="quantity" id="cart-count">{{ count(session('cart', [])) }}</div>
                             </button>
                         </div>
 
                         <!-- Cart Total -->
                         <div class="paymentdetails text-start">
                             <p>Shopping cart:</p>
-                            <h5>${{ $total }}</h5>
+                            <h5 id="cart-total">
+                                $@php
+                                    $total = 0;
+                                    foreach (session('cart', []) as $item) {
+                                        $total += ($item['price'] ?? 0) * ($item['quantity'] ?? 0);
+                                    }
+                                    echo number_format($total, 2);
+                                @endphp
+                            </h5>
                         </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Cart Sidebar -->
-            <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="cartSideBar"
-                aria-labelledby="cartSideBarLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="cartSideBarLabel">Shopping Cart ({{ count($cart) }})</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body">
-                    <div class="cardProduct my-1">
-                        @if (!empty($cart))
-                        @foreach ($cart as $value)
-                        <div class="row align-items-center product">
-                            <div class="col-3">
-                                <img class="img-fluid" width="100px"
-                                    src="{{ isset($value['image']) ? asset('storage/'.$value['image']) : asset('frontend/assets/img/default.png') }}"
-                                    alt="{{ $value['title'] ?? 'Product' }}">
-                            </div>
-                            <div class="col-7">
-                                <h6>{{ $value['title'] ?? 'No title' }}</h6>
-                                <p>1 kg x <span>${{ $value['price'] ?? 0 }}</span></p>
-                                <span>Quantity: {{ $value['quantity'] ?? 0 }}</span>
-                            </div>
-
-                            <div class="col-2 text-end">
-                                <iconify-icon icon=" charm:cross"></iconify-icon>
-                            </div>
-                        </div>
-                        @endforeach
-                        @else
-                        <div class="row align-items-center product">
-                            <div class="col-12 text-center">
-                                <h6>No Product Found</h6>
-                            </div>
-                        </div>
-                        @endif
                     </div>
 
-                    <!-- Checkout Button -->
-                    <div class="checkoutBtnBox">
-                        <div class="d-flex justify-content-between">
-                            <span class="cardQuantity">{{ count($cart) }} Product</span>
-                            <span class="totalPrice">${{ $total }}</span>
+                    <!-- Cart Sidebar -->
+                    <div style="width: 30%;" class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="cartSideBar"
+                        aria-labelledby="cartSideBarLabel">
+                        <div class="offcanvas-header">
+                            <h5 class="offcanvas-title" id="cartSideBarLabel">Shopping Cart (<span
+                                    id="cart-header-count">0</span>)</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                aria-label="Close"></button>
                         </div>
-                        <a class="checkout d-block text-center" href="{{ route('checkout') }}">Checkout</a>
-                        <a class="cart d-block text-center" href="{{ route('cart') }}">Go To Cart</a>
+                        <div class="offcanvas-body">
+                            <div class="cardProduct my-1" id="cart-products">
+                                {{-- Loaded via AJAX --}}
+                            </div>
+
+                            <!-- Checkout Button -->
+                            <div class="checkoutBtnBox">
+                                <div class="d-flex justify-content-between">
+                                    <span class="cardQuantity" id="cart-footer-count">0 Product</span>
+                                    <span class="totalPrice" id="cart-footer-total">$0.00</span>
+                                </div>
+                                <a class="checkout d-block text-center" href="{{ route('checkout') }}">Checkout</a>
+                                <a class="cart d-block text-center" href="{{ route('cart') }}">Go To Cart</a>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+
         </section>
 
         <!-- *Middle Bar Section Desktop end -->
@@ -176,7 +151,8 @@
                     <!-- *Menu Sidebar End-->
                     <div class="col-6 d-flex justify-content-center">
                         <div class="logo">
-                            <a href="{{ route('homepage') }}"><img src="{{ asset('frontend/assets/img/Logo.png')}}" alt=""></a>
+                            <a href="{{ route('homepage') }}"><img src="{{ asset('frontend/assets/img/Logo.png')}}"
+                                    alt=""></a>
                         </div>
                     </div>
                     <div class="col-3 text-end searchMob">
@@ -206,7 +182,7 @@
                             <nav>
                                 <ul class="shopOpen">
                                     @foreach ($categories as $category)
-                                    <li><a href="#">{{ $category->title }}</a></li>
+                                        <li><a href="#">{{ $category->title }}</a></li>
                                     @endforeach
                                 </ul>
                             </nav>
@@ -249,7 +225,8 @@
                     </div>
                     <div class="row">
                         <div class="col-6 searchProductCnt">
-                            <a href="#"><img class="img-fluid" src="{{ asset('frontend/assets/img/Product Image.png')}}"></a>
+                            <a href="#"><img class="img-fluid"
+                                    src="{{ asset('frontend/assets/img/Product Image.png')}}"></a>
                             <div class="productdetails text-start">
                                 <h5>Indian Green Apple</h5>
                                 <p>$14.99 <del>$20.99</del></p>
@@ -306,15 +283,15 @@
                     <div class="row align-items-center">
                         <div class="col-3">
                             <div class="dropdown">
-                                <button class="categoryDrop d-flex align-items-center justify-content-evenly" type="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                <button class="categoryDrop d-flex align-items-center justify-content-evenly"
+                                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <iconify-icon icon="lucide:menu"></iconify-icon><span>All
                                         Categories</span>
                                     <iconify-icon icon="iconamoon:arrow-down-2-thin"></iconify-icon>
                                 </button>
                                 <ul class="dropdown-menu">
                                     @foreach ($categories as $category)
-                                    <li><a class="dropdown-item" href="#">{{ $category->title }}</a></li>
+                                        <li><a class="dropdown-item" href="#">{{ $category->title }}</a></li>
                                     @endforeach
 
                                 </ul>
@@ -329,7 +306,7 @@
                                     <ul class="desktopChild">
 
                                         @foreach ($categories as $category)
-                                        <li><a href="#">{{ $category->title }}</a></li>
+                                            <li><a href="#">{{ $category->title }}</a></li>
                                         @endforeach
                                     </ul>
                                 </li>
@@ -382,7 +359,8 @@
                             <img class="img-fluid" src="{{ asset('frontend/assets/img/fav.png')}}"
                                 alt="Logo.png')}}"><span>Ecobazar</span>
                         </div>
-                        <p>Morbi cursus porttitor enim lobortis molestie. Duis gravida turpis dui, eget bibendum magna congue
+                        <p>Morbi cursus porttitor enim lobortis molestie. Duis gravida turpis dui, eget bibendum magna
+                            congue
                             nec.
                         </p>
                         <span><a href="tel:555-0114">(219) 555-0114</a> or</span>
@@ -459,31 +437,32 @@
 
     <!-- *Popup Box Start -->
     {{-- <section id="popup" class="popup d-none">
-      <div class="popup2">
-         <div class="container">
-            <div class="row align-items-center justify-content-center">
-               <div class="close-btn text-end">
-                  <iconify-icon icon="radix-icons:cross-2"></iconify-icon>
-               </div>
-               <div class="col-lg-5 col mt-3">
-                  <img class="img-fluid" src="{{ asset('frontend/assets/img/BG.png')}}" alt="">
-    </div>
-    <div class="col-lg-7 col text-center popText">
-        <h3>Subcribe to Our Newsletter</h3>
-        <p class="sub">Subscribe to our newlletter and Save your <span>20% money</span> with discount code
-            today.</p>
-        <div class="subscribe d-flex">
-            <input type="email" placeholder="Enter your email address">
-            <button>Subscribe</button>
+        <div class="popup2">
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="close-btn text-end">
+                        <iconify-icon icon="radix-icons:cross-2"></iconify-icon>
+                    </div>
+                    <div class="col-lg-5 col mt-3">
+                        <img class="img-fluid" src="{{ asset('frontend/assets/img/BG.png')}}" alt="">
+                    </div>
+                    <div class="col-lg-7 col text-center popText">
+                        <h3>Subcribe to Our Newsletter</h3>
+                        <p class="sub">Subscribe to our newlletter and Save your <span>20% money</span> with discount
+                            code
+                            today.</p>
+                        <div class="subscribe d-flex">
+                            <input type="email" placeholder="Enter your email address">
+                            <button>Subscribe</button>
+                        </div>
+                        <div class="dontShow d-flex justify-content-center align-items-center mt-4 mb-2">
+                            <input type="checkbox">
+                            <p>Don't show this popup again</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="dontShow d-flex justify-content-center align-items-center mt-4 mb-2">
-            <input type="checkbox">
-            <p>Don't show this popup again</p>
-        </div>
-    </div>
-    </div>
-    </div>
-    </div>
     </section> --}}
     <!-- *Popup Box End -->
 
@@ -495,6 +474,62 @@
     <script src="{{ asset('frontend/assets/js/venobox.min.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
     @stack('scripts')
+    <script>
+    // Delete item from cart
+    $("body").on("click", ".delete-item", function () {
+        if (!confirm("Remove this item?")) return;
+
+        let btn = $(this),
+            id = btn.data("id");
+
+        $.post("{{ route('cart.remove.ajax') }}", {
+            _token: "{{ csrf_token() }}",
+            id: id
+        }, function (res) {
+            if (res.success) {
+                // Remove product .row div instead of tr
+                btn.closest(".product").remove();
+                
+                // Update cart UI after removal
+                updateCartUI();
+                toastr.success("Item removed from cart");
+            } else {
+                toastr.error("Failed to remove item");
+            }
+        });
+    });
+
+    // Update cart UI (counts, total, and product list)
+    function updateCartUI() {
+        $.get('{{ route("cart.summary") }}', function (data) {
+            $('#cart-count').text(data.count);
+            $('#cart-total').text('$' + data.total);
+            $('#cart-header-count').text(data.count);
+            $('#cart-footer-count').text(data.count + ' Product');
+            $('#cart-footer-total').text('$' + data.total);
+        });
+
+        $.get('{{ route("cart.products") }}', function (data) {
+            $('#cart-products').html(data.html);
+        });
+    }
+
+    // Handle Add to Cart via anchor tag click
+    $(document).on('click', '.addToCartBtn', function (e) {
+        e.preventDefault();
+        const url = $(this).attr('href');
+        $.get(url, function (res) {
+            updateCartUI();
+            toastr.success("Product added to cart!");
+        });
+    });
+
+    // Initial cart UI load on page ready
+    $(document).ready(function () {
+        updateCartUI();
+    });
+</script>
+
 </body>
 
 </html>

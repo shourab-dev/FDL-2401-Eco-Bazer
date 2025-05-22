@@ -8,25 +8,28 @@ use App\Http\Controllers\Controller;
 
 class CartController extends Controller
 {
+
     public function addToCart(Request $request, $id)
-    {
-        $product = Product::findOrFail($id);
-        $cart = session('cart', []);
+{
+    $product = Product::findOrFail($id);
+    $cart = session('cart', []);
 
-        if (isset($cart[$id])) {
-            $cart[$id]['quantity']++;
-        } else {
-            $cart[$id] = [
-                'title'    => $product->title,
-                'price'    => $product->price,
-                'quantity' => 1,
-                'image'    => $product->featured_image,
-            ];
-        }
-
-        session(['cart' => $cart]);
-        return redirect()->back()->with('success', 'Product added to cart!');
+    if (isset($cart[$id])) {
+        $cart[$id]['quantity']++;
+    } else {
+        $cart[$id] = [
+            'title'    => $product->title,
+            'price'    => $product->selling_price,
+            'quantity' => 1,
+            'image'    => $product->featured_image,
+        ];
     }
+
+    session(['cart' => $cart]);
+
+    // Return JSON success response
+    return response()->json(['success' => true, 'message' => 'Product added to cart']);
+}
 
     public function cart()
     {
