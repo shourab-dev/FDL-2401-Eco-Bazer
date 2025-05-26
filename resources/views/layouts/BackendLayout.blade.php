@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="{{ asset('backend/assets/css/demo.css') }}" />
   <link rel="stylesheet" href="{{ asset('backend/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
   <link rel="stylesheet" href="{{ asset('backend/assets/vendor/libs/apex-charts/apex-charts.css') }}" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.3.1/css/dataTables.dataTables.min.css">
   <style>
     #laravel-notify {
       position: absolute;
@@ -249,6 +250,7 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="{{ asset('backend/assets/js/dashboards-analytics.js') }}"></script>
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script src="https://cdn.datatables.net/2.3.1/js/dataTables.min.js"></script>
   @notifyJs
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   @stack('scripts')

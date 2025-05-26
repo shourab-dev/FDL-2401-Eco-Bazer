@@ -3,7 +3,7 @@
 @section('backend')
 <div class="container">
     <div class="row">
-        <table class="table table-responsive">
+        <table id="dataTable" class="table table-responsive">
             <thead>
                 <tr class="text-center">
                     <th>Sl.</th>
@@ -39,4 +39,6 @@
         </table>
     </div>
 </div>
+
 @endsection
+

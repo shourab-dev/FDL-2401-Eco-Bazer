@@ -42,7 +42,7 @@ class ProductController extends Controller
       }
 
       $name = $slug . "." . $request->featuredImage->extension();
-      dd($name);
+      
       $featuredImage  = $request->featuredImage->storeAs('products', $name, 'public');
       $product->featured_image = $featuredImage;
     }
@@ -126,7 +126,7 @@ class ProductController extends Controller
   }
   function index()
   {
-    $products = Product::paginate(3);
+    $products = Product::paginate(2);
     return view('backend.products.show', compact('products'));
   }
 }
