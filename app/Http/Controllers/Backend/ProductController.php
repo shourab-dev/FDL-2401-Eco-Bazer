@@ -24,7 +24,9 @@ class ProductController extends Controller
 
   function store(ProductRequest $request, $id = null)
   {
-
+    // dd(
+    //   $request->all()
+    // );
     $slug = $this->slugGenerator($request->slug, $request->title);
     if (!$slug) {
       return to_route('products.create')->withErrors(['slug' => 'this slug is already in use.']);
@@ -40,12 +42,13 @@ class ProductController extends Controller
       }
 
       $name = $slug . "." . $request->featuredImage->extension();
+      dd($name);
       $featuredImage  = $request->featuredImage->storeAs('products', $name, 'public');
       $product->featured_image = $featuredImage;
     }
 
     //* Gallery Images
-    if (count($request->galleryImages) > 0) {
+    if (count($request->galleryImages ?? []) > 0) {
       $gallaries = [];
       foreach ($request->galleryImages as $gall) {
         $name = $slug . "_" . time() . "." . $gall->extension();
@@ -121,9 +124,9 @@ class ProductController extends Controller
 
     return response()->json($resArr);
   }
-
-  function index(){
-    $products = Product::get();
-    return view('Backend.Products.index', compact('products'));
+  function index()
+  {
+    $products = Product::paginate(3);
+    return view('backend.products.show', compact('products'));
   }
 }
