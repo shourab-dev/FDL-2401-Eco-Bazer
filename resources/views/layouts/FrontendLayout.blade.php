@@ -22,6 +22,7 @@
    <link rel="stylesheet" href="{{ asset('frontend/assets/css/venobox.min.css') }}">
    <link rel="stylesheet" href="{{ asset('frontend/assets/css/bootstrap.min.css') }}">
    <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}">
+   
    <link rel="stylesheet" href="{{ asset('frontend/assets/css/responsive.css') }}">
 </head>
 
@@ -202,9 +203,9 @@
                         <li><a href="#">Privacy Policy</a></li>
                      </ul>
                   </li>
-                  <li><a href="blog.html">Blog</a></li>
-                  <li><a href="about.html">About Us</a></li>
-                  <li><a href="contact.html">Contact Us</a></li>
+                  <li><a href="#">Blog</a></li>
+                  <li><a href="#">About Us</a></li>
+                  <li><a href="{{route('contact')}}">Contact-Us</a></li>
                </ul>
             </div>
          </div>
@@ -320,9 +321,9 @@
                               <li><a href="#">Privacy Policy</a></li>
                            </ul>
                         </li>
-                        <li><a class="" href="blog.html">Blog</a></li>
-                        <li><a class="" href="about.html">About Us</a></li>
-                        <li><a class="" href="contact.html">Contact Us</a></li>
+                        <li><a class="" href="#">Blog</a></li>
+                        <li><a class="" href="#">About Us</a></li>
+                        <li><a class="" href="{{ route('contact') }}">Contact-Us</a></li>
                      </ul>
                   </div>
                   <div class="col-2 d-flex align-items-center quickCall">

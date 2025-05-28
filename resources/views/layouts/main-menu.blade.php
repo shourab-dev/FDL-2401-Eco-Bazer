@@ -43,4 +43,10 @@
         </li>
        
     </ul>
+    <li class="menu-item {{request()->routeIs('contact.*') ? 'active open' : ''}} ">
+              <a href="{{route('contactMessage')}}" class="menu-link">
+              <i class='menu-icon  bx bx-phone'></i>
+            <div data-i18n="Analytics">Contact Us</div>
+              </a>
+    </li>
 </li>

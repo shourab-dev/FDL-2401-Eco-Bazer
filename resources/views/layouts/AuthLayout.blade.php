@@ -15,6 +15,7 @@
    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
    <link rel="stylesheet" href="{{ asset('frontend/assets/css/bootstrap.min.css') }}">
    <link rel="stylesheet" href="{{ asset('frontend/assets/css/Register.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/assets/css/contact.css') }}">
    <link rel="stylesheet" href="{{ asset('frontend/assets/css/registerRasponsiv.css') }}">
 </head>
 
@@ -42,7 +43,7 @@
                         <option>Rp</option>
                      </select>
                   </form>
-                  <a href="Register.html">Sign In / Sign Up</a>
+                  <a href="{{ route('login') }}">Sign In / Sign Up</a>
                </div>
             </div>
          </div>
