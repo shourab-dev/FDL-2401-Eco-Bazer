@@ -70,12 +70,24 @@
                     </div>
 
                     <!-- Search Box -->
-                    <div class="col-lg-6 d-flex align-items-center">
-                        <div class="searchBoxLg">
-                            <iconify-icon icon="cuida:search-outline"></iconify-icon>
-                            <input type="search" placeholder="Search">
-                        </div>
-                        <button class="searchBtn" type="button">Search</button>
+                    <div class="col-lg-6">
+                        <form id="search" method="GET" action="{{ route('frontend.search') }}"
+                            class="d-flex align-items-center">
+                            @csrf
+                            <div class="searchBoxLg position-relative">
+                                <iconify-icon icon="cuida:search-outline"></iconify-icon>
+                                <input name="search" value="{{ request()->search ?? '' }}" type="search"
+                                    placeholder="Search">
+                                <div class="searchResult position-absolute bg-white w-100 px-3 py-4"
+                                    style="z-index: 9999;display:none">
+                                    <ul>
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <button class="searchBtn" type="submit">Search</button>
+
+                        </form>
                     </div>
 
                     <!-- Cart & Wishlist -->
@@ -87,7 +99,7 @@
                             <button type="button" data-bs-toggle="offcanvas" data-bs-target="#cartSideBar"
                                 aria-controls="cartSideBar">
                                 <iconify-icon icon="lets-icons:bag-alt"></iconify-icon>
-                                <div class="quantity" id="cart-count">{{ count(session('cart', [])) }}</div>
+                                <div class="quantity" id="cart-count">{{ $cartCount }}</div>
                             </button>
                         </div>
 
@@ -96,11 +108,11 @@
                             <p>Shopping cart:</p>
                             <h5 id="cart-total">
                                 $@php
-                                    $total = 0;
-                                    foreach (session('cart', []) as $item) {
-                                        $total += ($item['price'] ?? 0) * ($item['quantity'] ?? 0);
-                                    }
-                                    echo number_format($total, 2);
+                                $total = 0;
+                                foreach (session('cart', []) as $item) {
+                                $total += ($item['price'] ?? 0) * ($item['quantity'] ?? 0);
+                                }
+                                echo number_format($total, 2);
                                 @endphp
                             </h5>
                         </div>
@@ -108,17 +120,17 @@
                     </div>
 
                     <!-- Cart Sidebar -->
-                    <div style="width: 30%;" class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="cartSideBar"
-                        aria-labelledby="cartSideBarLabel">
+                    <div style="width: 30%;" class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1"
+                        id="cartSideBar" aria-labelledby="cartSideBarLabel">
                         <div class="offcanvas-header">
                             <h5 class="offcanvas-title" id="cartSideBarLabel">Shopping Cart (<span
-                                    id="cart-header-count">0</span>)</h5>
+                                    id="cart-header-count">{{ $cartCount ?? 0 }}</span>)</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
                                 aria-label="Close"></button>
                         </div>
                         <div class="offcanvas-body">
-                            <div class="cardProduct my-1" id="cart-products">
-                                {{-- Loaded via AJAX --}}
+                            <div class="cardProduct " id="cart-products">
+
                             </div>
 
                             <!-- Checkout Button -->
@@ -127,7 +139,7 @@
                                     <span class="cardQuantity" id="cart-footer-count">0 Product</span>
                                     <span class="totalPrice" id="cart-footer-total">$0.00</span>
                                 </div>
-                                <a class="checkout d-block text-center" href="{{ route('checkout') }}">Checkout</a>
+                                <a class="checkout d-block text-center" href="{{ route('cart.checkout') }}">Checkout</a>
                                 <a class="cart d-block text-center" href="{{ route('cart') }}">Go To Cart</a>
                             </div>
                         </div>
@@ -182,7 +194,7 @@
                             <nav>
                                 <ul class="shopOpen">
                                     @foreach ($categories as $category)
-                                        <li><a href="#">{{ $category->title }}</a></li>
+                                    <li><a href="#">{{ $category->title }}</a></li>
                                     @endforeach
                                 </ul>
                             </nav>
@@ -291,7 +303,7 @@
                                 </button>
                                 <ul class="dropdown-menu">
                                     @foreach ($categories as $category)
-                                        <li><a class="dropdown-item" href="#">{{ $category->title }}</a></li>
+                                    <li><a class="dropdown-item" href="#">{{ $category->title }}</a></li>
                                     @endforeach
 
                                 </ul>
@@ -306,7 +318,8 @@
                                     <ul class="desktopChild">
 
                                         @foreach ($categories as $category)
-                                            <li><a href="#">{{ $category->title }}</a></li>
+                                        <li><a href="{{ route('frontend.categories.products', $category->slug) }}">{{
+                                                $category->title }}</a></li>
                                         @endforeach
                                     </ul>
                                 </li>
@@ -473,62 +486,151 @@
     <script src="{{ asset('frontend/assets/js/isotope.pkgd.min.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/venobox.min.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
+    @include('layouts.sweet_success')
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+            }
+    });
+    </script>
     @stack('scripts')
     <script>
-    // Delete item from cart
-    $("body").on("click", ".delete-item", function () {
-        if (!confirm("Remove this item?")) return;
+        // Delete item from cart
+    // $("body").on("click", ".delete-item", function () {
+    //     if (!confirm("Remove this item?")) return;
 
-        let btn = $(this),
-            id = btn.data("id");
+    //     let btn = $(this),
+    //         id = btn.data("id");
 
-        $.post("{{ route('cart.remove.ajax') }}", {
-            _token: "{{ csrf_token() }}",
-            id: id
-        }, function (res) {
-            if (res.success) {
-                // Remove product .row div instead of tr
-                btn.closest(".product").remove();
+    //     $.post("{{ route('cart.remove.ajax') }}", {
+    //         _token: "{{ csrf_token() }}",
+    //         id: id
+    //     }, function (res) {
+    //         if (res.success) {
+    //             // Remove product .row div instead of tr
+    //             btn.closest(".product").remove();
                 
-                // Update cart UI after removal
-                updateCartUI();
-                toastr.success("Item removed from cart");
-            } else {
-                toastr.error("Failed to remove item");
-            }
-        });
-    });
+    //             // Update cart UI after removal
+    //             updateCartUI();
+    //             toastr.success("Item removed from cart");
+    //         } else {
+    //             toastr.error("Failed to remove item");
+    //         }
+    //     });
+    // });
 
     // Update cart UI (counts, total, and product list)
     function updateCartUI() {
-        $.get('{{ route("cart.summary") }}', function (data) {
-            $('#cart-count').text(data.count);
-            $('#cart-total').text('$' + data.total);
-            $('#cart-header-count').text(data.count);
-            $('#cart-footer-count').text(data.count + ' Product');
-            $('#cart-footer-total').text('$' + data.total);
-        });
+        $.ajax({
+            url: `{{ route('cart.summary') }}`,
+            method: "GET",
+            success: function (res) {
+                $('.cartIcon .quantity').text(res.cart.length ?? 0)
+                $('#cart-header-count').text(res.cart.length ?? 0)
+                $('#cart-total').text(res.total ?? 0)
+                let productsArray = [];
+                res?.cart?.forEach(item => {
+                    let productHtml = `<div class="row my-2 align-items-center product">
+                        <div class="col-5"><img class="img-fluid" src="{{ asset('storage/') }}/${item.product.featured_image}" alt="">
+                        </div>
+                        <div class="col-6">
+                            <h6>${item.product.title}</h6>
+                            <p>${item.qty} x <span>${item.product.selling_price ?? item.product.price}</span></p>
+                        </div>
+                        <div class="col-1">
+                            <iconify-icon icon="charm:cross"></iconify-icon>
+                        </div>
+                    </div>`
 
-        $.get('{{ route("cart.products") }}', function (data) {
-            $('#cart-products').html(data.html);
-        });
+                    productsArray.push(productHtml)
+                });
+
+                $('#cart-products').html(productsArray)
+            },
+            error: function (error) {}
+        })
+
     }
 
     // Handle Add to Cart via anchor tag click
+    $('.cartIcon').click(function(){
+        updateCartUI()
+    })
     $(document).on('click', '.addToCartBtn', function (e) {
         e.preventDefault();
         const url = $(this).attr('href');
-        $.get(url, function (res) {
-            updateCartUI();
-            toastr.success("Product added to cart!");
-        });
+        
+        $.ajax({
+            url: url,
+            method: 'GET',
+            success:function(res){
+               Toast.fire({
+                icon: res.status,
+                title: res.msg
+                });
+                updateCartUI();
+                
+            },
+            error: function(error){
+                console.log(error)
+            }
+        })
+        
     });
 
-    // Initial cart UI load on page ready
-    $(document).ready(function () {
-        updateCartUI();
-    });
-</script>
+    </script>
+    {{-- Search bar --}}
+    <script>
+        $('#search input[type="search"]').keyup(function(){
+            let value = $(this).val()
+
+            if(value.length >= 3){
+                //* AJax
+
+                $.ajax({
+                    method: 'GET',
+                    url: `{{ route('frontend.live_search') }}`,
+                    data: {
+                        search : value
+                    },
+                    success: function(data){
+                        let HTML = [];
+                        if(data.length > 0){
+                        data.forEach(item => {
+                            let url = `{{ route('frontend.single_products', '::slug') }}`
+                            url = url.replace('::slug', item.slug)
+                            let li = `<li><a class="my-2 d-block text-dark" href="${url}">${item.title}</a></li>`;
+                            HTML.push(li)
+                        });
+                        $('.searchResult ul').html(HTML)
+                        $('.searchResult').slideDown();
+                    }
+                        
+                        
+                    },
+                    error: function(xhr, status, error){
+                        console.log(xhr.responseText);
+                    }
+                })
+
+
+            }
+
+            if(value.length == 0){
+                $('.searchResult ul').html('')
+                $('.searchResult').hide();
+            }
+            
+        })
+
+    </script>
 
 </body>
 

@@ -7,6 +7,7 @@
 
 </li>
 <!-- Categories -->
+@can('show-category')
 <li class="menu-item {{ request()->routeIs('category.*') ? 'active open' : '' }} ">
     <a href="{{ route('category.index') }}" class="menu-link ">
         <i class='menu-icon bx bx-category'></i>
@@ -14,6 +15,10 @@
     </a>
 
 </li>
+@endcan
+@can('show-brand')
+
+
 <!-- Brand -->
 <li class="menu-item {{ request()->routeIs('brand.*') ? 'active open' : '' }} ">
     <a href="{{ route('brand.index') }}" class="menu-link ">
@@ -22,7 +27,8 @@
     </a>
 
 </li>
-
+@endcan
+@canany(['show-product', 'create-product'])
 <li class="menu-item {{ request()->routeIs('products.*') ? 'active open' : '' }}">
     <a href="javascript:void(0);" class="menu-link menu-toggle">
 
@@ -31,19 +37,22 @@
     </a>
 
     <ul class="menu-sub">
+        @can('create-product')
         <li class="menu-item">
             <a href="{{ route('products.create') }}" class="menu-link">
                 <div class="text-truncate" data-i18n="Without menu">Add Product</div>
             </a>
         </li>
+        @endcan
         <li class="menu-item">
             <a href="{{ route('products.index') }}" class="menu-link">
                 <div class="text-truncate" data-i18n="Without menu">All Products</div>
             </a>
         </li>
-       
+
     </ul>
 </li>
+@endcanany
 
 {{-- Banner --}}
 

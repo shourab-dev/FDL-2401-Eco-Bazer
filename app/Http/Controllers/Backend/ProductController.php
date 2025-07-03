@@ -42,7 +42,7 @@ class ProductController extends Controller
       }
 
       $name = $slug . "." . $request->featuredImage->extension();
-      
+
       $featuredImage  = $request->featuredImage->storeAs('products', $name, 'public');
       $product->featured_image = $featuredImage;
     }
@@ -51,7 +51,7 @@ class ProductController extends Controller
     if (count($request->galleryImages ?? []) > 0) {
       $gallaries = [];
       foreach ($request->galleryImages as $gall) {
-        $name = $slug . "_" . time() . "." . $gall->extension();
+        $name = $slug . "_" . uniqid() . "." . $gall->extension();
         $gallery  = $gall->storeAs('products', $name, 'public');
         $gallaries[] = $gallery;
       }
@@ -90,7 +90,8 @@ class ProductController extends Controller
         return $slug;
       }
     } else {
-      $slug = str($title)->slug();
+      $slug = Str()::slug();
+
       $count = Product::whereLike('slug', "%$slug%")->count();
 
       if ($count > 0) {
@@ -124,9 +125,25 @@ class ProductController extends Controller
 
     return response()->json($resArr);
   }
-  function index()
+  function index(Request $request)
   {
-    $products = Product::paginate(2);
-    return view('backend.products.show', compact('products'));
+    if ($request->ajax()) {
+      $products = Product::query()->with('category', 'brand');
+
+
+      return datatables()->of($products)
+        ->addIndexColumn()
+        ->addColumn('featured_image', function ($item) {
+          $url = $item->featured_image ? asset('storage/' . $item->featured_image) : 'https://i0.wp.com/mikeyarce.com/wp-content/uploads/2021/09/woocommerce-placeholder.png?ssl=1';
+          return "<img src='$url' />";
+        })
+        ->addColumn('status', function ($item) {
+          return general_status($item->status);
+        })
+        ->addColumn('action', function ($item) {
+          return view('Backend.Products.button', compact('item'));
+        })->rawColumns(['featured_image', 'status'])->make(true);
+    }
+    return view('backend.products.show');
   }
 }

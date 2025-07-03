@@ -1,7 +1,7 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @if(session('success'))
 <script>
-    Swal.fire({
+    const Toast = Swal.fire({
         icon: 'success',
         toast: true,
         position: "top-end",

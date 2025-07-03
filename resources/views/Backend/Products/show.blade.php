@@ -9,55 +9,44 @@
                 <thead>
                     <tr class="text-center">
                         <th>Sl.</th>
+                        <th>Image</th>
                         <th class="text-start">Product Name</th>
                         <th>Category Name</th>
                         <th>Brand Name</th>
                         <th>Price</th>
                         <th>Selling Price</th>
                         <th>Quantity</th>
-                        <th>Product Image</th>
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody>
-                    @foreach ($products as $key=>$product)
 
-
-                    <tr class="text-center">
-                        <td>{{ ++$key }}</td>
-                        <td class="text-start">{{ $product->title}}</td>
-                        <td>{{$product->category->title}}</td>
-                        <td>{{$product->brand->title}}</td>
-                        <td>{{$product->price}}</td>
-                        <td>{{$product->selling_price}}</td>
-                        <td>{{$product->qty}}</td>
-                        <td><img class="img-fluid" style="height:70px;width:70px"
-                                src="{{ asset('storage/' . $product->featured_image) }}" alt=""></td>
-
-                        <td>
-                            {!! general_status($product->status) !!}
-                        </td>
-                        <td>
-                            <div class="btn-group">
-                                <a href="{{ route('products.edit', $product->id) }}" class="btn  btn-primary"><i
-                                        class='bx bx-pencil'></i></a>
-                                <a href="#" class="btn  btn-danger btnDelete"><i class='bx bx-trash-alt'></i></a>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-
-                </tbody>
             </table>
-            <div style="margin-top: 20px;">
-                {{ $products->links() }}
-            </div>
+
         </div>
     </div>
     @push('scripts')
     <script>
-        let table = new DataTable('#dataTable');
+        let table = new DataTable('#dataTable',{
+            serverSide: true,
+            processing: true,
+            responsive: true,
+            ajax: {
+                url: `{{ route('products.index') }}`
+            },
+            columns: [
+                {data: 'DT_RowIndex',sortable: false,searchable:false},
+                {data: 'featured_image',sortable: false,searchable:false},
+                {data: 'title'},
+                {data: 'category.title'},
+                {data: 'brand.title'},
+                {data: 'price'},
+                {data: 'selling_price'},
+                {data: 'qty'},
+                {data: 'status'},
+                {data: 'action'},
+            ]
+        });
     </script>
     @endpush
     @endsection

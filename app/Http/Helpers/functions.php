@@ -19,3 +19,10 @@ if(!function_exists('general_status')){
 
     }
 }
+
+
+if(!function_exists('getImage')){
+    function getImage($path = null) {
+        return $path ? asset('storage/'. $path) : 'https://i0.wp.com/mikeyarce.com/wp-content/uploads/2021/09/woocommerce-placeholder.png';
+    }
+}

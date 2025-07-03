@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -10,74 +11,78 @@ class CartController extends Controller
 {
 
     public function addToCart(Request $request, $id)
-{
-    $product = Product::findOrFail($id);
-    $cart = session('cart', []);
-
-    if (isset($cart[$id])) {
-        $cart[$id]['quantity']++;
-    } else {
-        $cart[$id] = [
-            'title'    => $product->title,
-            'price'    => $product->selling_price,
-            'quantity' => 1,
-            'image'    => $product->featured_image,
-        ];
+    {
+        if (!Product::where('id', $id)->exists()) {
+            return response()->json(['status' => 'error', 'msg' => 'Product not found'], 401);
+        }
+        if (!$this->isExists($id)) {
+            //* Create
+            $cart = new Cart();
+            $cart->ip = auth()->check() ? null : request()->ip();
+            $cart->user_id = auth()->user()->id ?? null;
+            $cart->product_id = $id;
+            $cart->qty = 1;
+            $cart->save();
+        } else {
+            //* Update
+            $this->qtyUpdate($id);
+        }
+        return response()->json(['status' => 'success', 'msg' => 'Product has been added!']);
     }
 
-    session(['cart' => $cart]);
-
-    // Return JSON success response
-    return response()->json(['success' => true, 'message' => 'Product added to cart']);
-}
-
-    public function cart()
+    function summary()
     {
-        $cart = session('cart', []);
-        $total = array_reduce($cart, fn($sum, $item) => $sum + $item['price'] * $item['quantity'], 0);
-        return view('Frontend.cart', compact('cart', 'total'));
-    }
 
-    public function cartUpdate(Request $request)
-    {
-        $id   = $request->Product_id;
-        $qty  = max(1, (int)$request->quantity);
-        $cart = session('cart', []);
+        $cart =  Cart::with('product:id,slug,title,price,selling_price,featured_image')->where(function ($q) {
+            return $q->where('ip', request()->ip())->orWhere('user_id', auth()?->user()?->id);
+        })->get();
 
-        if (isset($cart[$id])) {
-            $cart[$id]['quantity'] = $qty;
-            session(['cart' => $cart]);
+        $products = $cart->pluck('product');
+        $total = 0;
+        foreach ($products as $product) {
+            $total += (!$product->selling_price ?  $product->price : $product->selling_price) * $cart->where('product_id', $product->id)->first()->qty;
         }
 
-        // recalc total
-        $total = array_reduce($cart, fn($sum, $item) => $sum + $item['price'] * $item['quantity'], 0);
-        $view  = view('Frontend.cart.cart-total', compact('total'))->render();
-
         return response()->json([
-            'success'          => true,
-            'cart_total_html'  => $view,
+            'status' => 'success',
+            'message' => 'Cart summary',
+            'cart' => $cart,
+            'products' => $products,
+            'total' => $total
         ]);
     }
 
-    public function remove(Request $request)
+    public function cart() {}
+
+    private function isExists($id = null)
     {
-        $id   = $request->id;
-        $cart = session('cart', []);
 
-        if (isset($cart[$id])) {
-            unset($cart[$id]);
-            session(['cart' => $cart]);
-        }
-
-        // recalc total & count
-        $total = array_reduce($cart, fn($sum, $item) => $sum + $item['price'] * $item['quantity'], 0);
-
-        $view = view('Frontend.cart.cart-total', compact('total'))->render();
-
-        return response()->json([
-            'success'          => true,
-            'count'            => count($cart),
-            'cart_total_html'  => $view,
-        ]);
+        $ipAddress  = request()->ip() ?? null;
+        return Cart::where(function ($q) use ($ipAddress) {
+            return $q->where('ip', $ipAddress)->orWhere('user_id', auth('customer')?->user()?->id);
+        })->where('product_id', $id)->exists();
     }
+
+
+    function qtyUpdate($id = null, $operator = 'increment', $qty = 1)
+    {
+        if (!Product::where('id', $id)->exists()) {
+            return response()->json(['status' => 'error', 'msg' => 'Product not found'], 401);
+        }
+        $query =  Cart::query()->where(function ($q) {
+            return $q->where('ip', request()->ip())->orWhere('user_id', auth()?->user()?->id);
+        })->where('product_id', $id);
+
+        if ($operator == 'increment') {
+            $query->increment('qty', $qty);
+        } else if ($operator == 'decrement') {
+            $query->decrement('qty', $qty);
+        } else {
+            return response()->json(['status' => 'error', 'msg' => 'Invalid operator'], 401);
+        }
+    }
+
+    public function cartUpdate(Request $request) {}
+
+    public function remove(Request $request) {}
 }
